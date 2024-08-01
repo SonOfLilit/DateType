@@ -67,5 +67,7 @@ class DateTypeTests(TestCase):
             actual = f.read()
         with open(f"{expected_file_name}.txt") as f:
             expected = f.read()
+        # with open(f"{expected_file_name}.txt", "w") as f:
+        #    f.write(actual)
         self.maxDiff = 9999
         self.assertEqual(expected, actual)

@@ -43,4 +43,8 @@ tryit.py:53: note:         def timetz(self) -> Time[None]
 tryit.py:53: note:     Got:
 tryit.py:53: note:         def timetz(self) -> Time[timezone]
 tryit.py:53: note:     tzinfo: expected "None", got "timezone"
-Found 9 errors in 1 file (checked 1 source file)
+tryit.py:59: error: No overload variant of "__add__" of "DateTime" matches argument type "NaiveDateTime"  [operator]
+tryit.py:59: note: Possible overload variants:
+tryit.py:59: note:     def __add__(self, timedelta, /) -> NaiveDateTime
+tryit.py:59: note:     def __add__(self, relativedelta, /) -> NaiveDateTime
+Found 10 errors in 1 file (checked 1 source file)

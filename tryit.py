@@ -1,4 +1,3 @@
-from typing import cast
 from datetime import datetime, timezone, date, time
 from zoneinfo import ZoneInfo
 from datetype import (
@@ -12,6 +11,7 @@ from datetype import (
     NaiveTime,
     AwareTime,
 )
+from dateutil.relativedelta import relativedelta
 
 x: NaiveDateTime = naive(datetime.now())  # ok
 y: AwareDateTime = aware(datetime.now(timezone.utc))  # ok
@@ -52,3 +52,8 @@ specific.tzinfo.key             # ok; ZoneInfo has 'key' attribute
 
 not_naive: NaiveDateTime = a.astimezone()
 is_aware: DateTime[timezone] = a.astimezone(None)
+
+r = relativedelta(days=1)
+x = x + r
+y = y + r
+x = x + x                       # error

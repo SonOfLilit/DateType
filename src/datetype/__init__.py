@@ -28,6 +28,8 @@ try:
 except ImportError:
     from typing_extensions import Protocol, runtime_checkable  # type: ignore[assignment]
 
+from dateutil.relativedelta import relativedelta
+
 _D = TypeVar("_D", bound="Date")
 _GMaybeTZT = TypeVar("_GMaybeTZT", bound=Optional[_tzinfo], covariant=True)
 _GMaybeTZDT = TypeVar("_GMaybeTZDT", bound=Optional[_tzinfo], covariant=True)
@@ -141,9 +143,15 @@ class Date(_CheckableProtocol, Protocol):
 
     if sys.version_info >= (3, 8):
 
+        @overload
         def __add__(self: Self, __other: _timedelta) -> Self: ...
+        @overload
+        def __add__(self: Self, other: relativedelta) -> Self | DateTime: ...
 
+        @overload
         def __radd__(self: Self, __other: _timedelta) -> Self: ...
+        @overload
+        def __radd__(self: Self, other: relativedelta) -> Self | DateTime: ...
 
         @overload
         def __sub__(self: Self, __other: _timedelta) -> Self: ...
@@ -459,9 +467,15 @@ class DateTime(Protocol[_GMaybeTZDT]):
     @overload
     def __sub__(self: DTSelf, __other: DTSelf) -> _timedelta: ...
 
+    @overload
     def __add__(self: Self, __other: _timedelta) -> Self: ...
+    @overload
+    def __add__(self: Self, other: relativedelta) -> Self: ...
 
+    @overload
     def __radd__(self: Self, __other_t: _timedelta) -> Self: ...
+    @overload
+    def __radd__(self: Self, __other_t: relativedelta) -> Self: ...
 
     if sys.version_info >= (3, 9):
 
